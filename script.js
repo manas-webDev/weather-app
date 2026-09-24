@@ -1,14 +1,17 @@
-const apiKey = "Your_api_key";
-const apiUrl =
-  "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-
 let weatherIcon = document.querySelector(".weather-icon");
 
 let searchBox = document.querySelector(".search input");
 let searchBtn = document.querySelector(".search button");
 
 async function checkWeather(city) {
-  const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+  // 🔴 LOCAL TESTING (Works on your computer, but exposes API key)
+  // const apiKey = "75584d34a9d6a57fe820bb8bc8bf187d";
+  // const fetchUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}&appid=${apiKey}`;
+  
+  // 🟢 VERCEL DEPLOYMENT (Use this before deploying to hide API key)
+  const fetchUrl = `/api/weather?city=${city}`;
+
+  const response = await fetch(fetchUrl);
 
   if (response.status == 404) {
     document.querySelector(".weather").style.display = "none";
